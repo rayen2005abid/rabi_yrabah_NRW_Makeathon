@@ -1,0 +1,4 @@
+demo:
+  core_types: [CORE-A, CORE-B, CORE-C, CORE-D, CORE-E]
+  deterministic_seed: 42
+  simulation_start: "2026-09-12T08:00:00+00:00"

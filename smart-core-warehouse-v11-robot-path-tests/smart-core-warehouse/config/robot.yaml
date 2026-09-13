@@ -1,0 +1,15 @@
+robot:
+  x_speed_mps: 1.2
+  z_speed_mps: 0.8
+  y_speed_mps: 0.25
+  load_time_s: 1.2
+  unload_time_s: 1.2
+  position_tolerance_m: 0.02
+  mock_realtime_speed_multiplier: 6.0
+  priorities:
+    recovery: 0
+    return_box: 10
+    urgent_production: 20
+    normal_production: 30
+    incoming_storage: 40
+    reorganization: 50

@@ -1,0 +1,8 @@
+# Demo calibration values for quantity estimation by weight.
+# Replace unit_weight_kg and tare_weight_kg with measured factory values.
+core_weights:
+  CORE-A: {unit_weight_kg: 0.42, tare_weight_kg: 1.20}
+  CORE-B: {unit_weight_kg: 0.55, tare_weight_kg: 1.20}
+  CORE-C: {unit_weight_kg: 0.36, tare_weight_kg: 1.20}
+  CORE-D: {unit_weight_kg: 0.48, tare_weight_kg: 1.20}
+  CORE-E: {unit_weight_kg: 0.63, tare_weight_kg: 1.20}

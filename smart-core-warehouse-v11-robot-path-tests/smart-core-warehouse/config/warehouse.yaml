@@ -1,0 +1,35 @@
+warehouse:
+  # Four physical rack modules. Each rack is an independent 8 x 8 storage grid.
+  # Racks 1-2 are on aisle side A, racks 3-4 mirror them on aisle side B.
+  # This keeps the total X footprint inside the approximate 6 m warehouse envelope
+  # while allowing the single stacker-crane robot to serve both sides of one aisle.
+  rack_count: 4
+  columns_per_rack: 8
+  levels_per_rack: 8
+  racks_per_side: 2
+  rack_gap_m: 0.25
+  fork_insertion_depth_m: 0.55
+
+  cell_effective_dimensions_m:
+    width: 0.34
+    depth: 0.55
+    height: 0.24
+  spacing_m:
+    x: 0.34
+    z: 0.24
+
+  buffers:
+    count: 3
+  entry_station:
+    code: ENTRY
+  picking_station:
+    code: PICKING
+
+slotting:
+  weights:
+    travel: 1.0
+    future: 0.7
+    congestion: 0.2
+    balance: 0.2
+    accessibility: 0.4
+    rl_policy: 0.35

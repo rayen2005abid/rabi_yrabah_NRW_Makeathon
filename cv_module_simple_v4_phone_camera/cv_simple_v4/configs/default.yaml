@@ -1,0 +1,114 @@
+project:
+  model_version: core_classifier_simple_v4
+  artifact_dir: artifacts/core_classifier_simple_v4
+  reports_dir: reports
+  log_level: INFO
+
+dataset:
+  raw_dir: data/raw
+  # 5 real core types + one operational EMPTY class for "no piece".
+  expected_num_classes: 6
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  seed: 42
+  evaluation_mode: split
+  kfold_folds: 5
+  fold_index: 0
+  split_manifest: reports/splits/split_manifest.csv
+  kfold_dir: reports/splits/kfold
+  supported_extensions: [.jpg, .jpeg, .png, .bmp, .tif, .tiff, .webp]
+  minimum_sensible_originals_per_class: 10
+
+augmentation:
+  enabled: true
+  # Moderate augmentation. Consistent camera crops matter more than extreme transforms.
+  rotation: 12
+  translation: 0.08
+  scale_min: 0.92
+  scale_max: 1.08
+  shear: 2.0
+  brightness: 0.15
+  contrast: 0.15
+  saturation: 0.08
+  hue: 0.01
+  autocontrast_probability: 0.10
+  sharpness_probability: 0.10
+  sharpness_factor: 1.3
+  blur_probability: 0.08
+  blur_kernel_size: 3
+  noise_probability: 0.15
+  noise_std: 0.010
+  perspective_probability: 0.12
+  perspective_distortion: 0.05
+  random_erasing_probability: 0.08
+  random_erasing_scale_min: 0.01
+  random_erasing_scale_max: 0.025
+  horizontal_flip: false
+  horizontal_flip_probability: 0.5
+
+model:
+  # B0 is deliberately smaller than B2: with a tiny dataset it is less prone to overfit,
+  # faster on CPU, and still strong with ImageNet transfer learning.
+  architecture: efficientnet_b0
+  pretrained: true
+  image_size: 224
+  dropout: 0.25
+
+training:
+  batch_size: 8
+  epochs_head: 12
+  epochs_finetune: 20
+  lr_head: 0.0007
+  lr_finetune: 0.00004
+  weight_decay: 0.0002
+  patience: 6
+  num_workers: 0
+  finetune: true
+  finetune_fraction: 0.35
+  scheduler_factor: 0.5
+  scheduler_patience: 2
+  class_weighting: auto
+  class_weight_mode: effective_num
+  effective_num_beta: 0.95
+  imbalance_ratio_threshold: 1.35
+  weighted_sampler: true
+  samples_per_epoch_multiplier: 3
+  label_smoothing: 0.03
+  gradient_clip_norm: 1.0
+  checkpoint_every_epoch: false
+
+inference:
+  accept_threshold: 0.75
+  review_threshold: 0.55
+  top_k: 3
+  max_upload_mb: 10
+  prototype_assist:
+    enabled: false
+    weight: 0.0
+    temperature: 0.12
+
+simple_camera:
+  index: 0
+  width: 1280
+  height: 720
+  mirror: true
+  empty_class_name: EMPTY
+
+  # Fixed green work area. No background calibration or object detector is required.
+  roi_width_fraction: 0.55
+  roi_height_fraction: 0.72
+
+  # V4 scans a short burst and votes instead of trusting a single live frame.
+  scan_frames: 12
+  scan_every_n_frames: 2
+  minimum_consensus: 0.75
+  empty_threshold: 0.65
+  type_threshold: 0.70
+  minimum_top1_margin: 0.10
+
+  save_dir: reports/camera_captures
+
+preprocessing:
+  preserve_aspect_ratio: true
+  padding_value: 127

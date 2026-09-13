@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "author": "SOPALTEC Smart Core Warehouse",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "entry", "top": -70, "left": -120, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "xlim", "top": 10, "left": -120, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "zlim", "top": 90, "left": -120, "attrs": {} },
+    { "type": "wokwi-slide-switch", "id": "fork", "top": 170, "left": -120, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "estop", "top": 250, "left": -120, "attrs": { "color": "red", "label": "E-STOP" } },
+    { "type": "wokwi-potentiometer", "id": "weight", "top": -85, "left": 250, "attrs": {} },
+    { "type": "wokwi-led", "id": "online", "top": 20, "left": 270, "attrs": { "color": "green" } },
+    { "type": "wokwi-led", "id": "task", "top": 75, "left": 270, "attrs": { "color": "blue" } },
+    { "type": "wokwi-led", "id": "fault", "top": 130, "left": 270, "attrs": { "color": "red" } }
+  ],
+  "connections": [
+    [ "entry:1", "esp:25", "green", [ "h0" ] ],
+    [ "entry:2", "esp:GND.1", "black", [ "h0" ] ],
+    [ "xlim:1", "esp:26", "green", [ "h0" ] ],
+    [ "xlim:2", "esp:GND.1", "black", [ "h0" ] ],
+    [ "zlim:1", "esp:27", "green", [ "h0" ] ],
+    [ "zlim:2", "esp:GND.1", "black", [ "h0" ] ],
+    [ "fork:1", "esp:14", "green", [ "h0" ] ],
+    [ "fork:2", "esp:GND.1", "black", [ "h0" ] ],
+    [ "estop:1.l", "esp:12", "red", [ "h0" ] ],
+    [ "estop:2.l", "esp:GND.1", "black", [ "h0" ] ],
+    [ "weight:SIG", "esp:34", "orange", [ "h0" ] ],
+    [ "weight:VCC", "esp:3V3", "red", [ "h0" ] ],
+    [ "weight:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "online:A", "esp:18", "green", [ "h0" ] ],
+    [ "online:C", "esp:GND.2", "black", [ "h0" ] ],
+    [ "task:A", "esp:19", "blue", [ "h0" ] ],
+    [ "task:C", "esp:GND.2", "black", [ "h0" ] ],
+    [ "fault:A", "esp:21", "red", [ "h0" ] ],
+    [ "fault:C", "esp:GND.2", "black", [ "h0" ] ]
+  ]
+}
