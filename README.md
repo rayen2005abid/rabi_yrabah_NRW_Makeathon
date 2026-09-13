@@ -66,7 +66,7 @@ project NRW/
 
 ## One Command Full Demo
 
-Use this for the jury run:
+Use this for to run:
 
 ```bat
 start_demo.bat
